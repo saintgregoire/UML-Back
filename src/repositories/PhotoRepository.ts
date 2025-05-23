@@ -19,8 +19,14 @@ export class PhotoRepository {
     }
 
     static findByPostId(id: string): IPhoto[] {
-    return this.getAll().filter(photo => id.includes(photo.postId));
-}
+        return this.getAll().filter((photo) => id.includes(photo.postId));
+    }
+
+    static deleteWherePostId(id: string): void {
+        const photos = this.getAll();
+        const newPhotos = photos.filter((photo) => photo.postId !== id);
+        this.saveAll(newPhotos);
+    }
 
     static delete(id: string): void {
         const photos = this.getAll();

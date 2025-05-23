@@ -28,6 +28,8 @@ export class PostService {
 
     static deletePost(id: string): void{
         PostRepository.delete(id);
+        PhotoRepository.deleteWherePostId(id);
+        CommentRepository.deleteWherePostId(id);
     }
 
     static updatePost(post: IPost): PostDTO {

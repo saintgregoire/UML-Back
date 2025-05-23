@@ -4,7 +4,7 @@ import { CommentService } from "../services/CommentService";
 export class CommentController {
     private commentService = new CommentService();
 
-    getAll(req: Request, res: Response): void {
+    getAll(res: Response): void {
         const comments = this.commentService.getAllComments();
         res.json(comments);
     }

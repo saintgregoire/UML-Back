@@ -1,8 +1,7 @@
 import express from 'express';
+import commentRoutes from './routes/commentRoutes';
 import postRoutes from './routes/postRoutes';
 import userRoutes from './routes/userRoutes';
-import commentRoutes from './routes/commentRoutes';
-
 
 const app = express();
 

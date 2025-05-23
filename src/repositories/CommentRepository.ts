@@ -31,6 +31,12 @@ export class CommentRepository {
         return this.getAll().filter(comment => id.includes(comment.postId));
     }
 
+    static deleteWherePostId(id: string): void {
+        const comments = this.getAll();
+        const newComments = comments.filter(comment => comment.postId !== id);
+        this.saveAll(newComments);
+    }
+
     static delete(id: string): void {
         const comments = this.getAll();
         const newComments = comments.filter(comment => comment.id !== id);
