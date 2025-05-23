@@ -9,3 +9,6 @@ router.post('/create', controller.create.bind(controller));
 router.get('/get-post/:id', controller.getOne.bind(controller));
 router.post('/delete-post', controller.delete.bind(controller));
 router.post('modify-post', controller.modify.bind(controller));
+
+
+export default router;
