@@ -3,7 +3,7 @@ import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import { IPost } from "../interfaces/post.interface";
 
-const filePath = path.join(__dirname, "../data/users.json");
+const filePath = path.join(__dirname, "../data/posts.json");
 
 export class PostRepository {
     static getAll(): IPost[] {

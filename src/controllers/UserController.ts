@@ -9,17 +9,17 @@ export class UserController {
         res.status(200);
     }
 
-    create(req: Request, res: Response): void {
-        const { firstName, lastName, email, role } = req.body;
-        if (!firstName || !lastName || !email) {
+    async create(req: Request, res: Response): Promise<void> {
+        const { firstName, lastName, email, password, role } = req.body;
+        if (!firstName || !lastName || !email || !password) {
             res.status(400).json({ error: "Missing data" });
             return;
         }
 
         const defaultRole = role ?? 'user';
 
-        const user = userService.createUser({ firstName, lastName, email, role: defaultRole });
-        res.status(201).json(user);
+        await userService.createUser({ firstName, lastName, email, password, role: defaultRole });
+        res.status(201).json({ message: "User created successfully" });
     }
 
     getOne(req: Request, res: Response): void {
@@ -49,5 +49,22 @@ export class UserController {
         }catch(e: any){
             res.status(400).json({error: e.message});
         }
+    }
+
+    async login(req: Request, res: Response): Promise<void> {
+        const { email, password } = req.body;
+        const user = await userService.getUserByEmail(email);
+        if (!user) {
+            res.status(404).json({ error: "User not found" });
+            return;
+        }
+
+        const isPasswordValid = await userService.verifyPassword(password, user.password);
+        if (!isPasswordValid) {
+            res.status(401).json({ error: "Invalid password" });
+            return;
+        }
+
+        res.status(200).json({ message: "Login successful" });
     }
 }

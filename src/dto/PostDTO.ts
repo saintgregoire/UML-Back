@@ -17,17 +17,17 @@ export class PostDTO {
     createdAt: Date;
     updatedAt: Date;
 
-    constructor(post: IPost) {
+    constructor(post: IPost, author: IUser, photos: IPhoto[], comments: IComment[]) {
         this.id = post.id;
         this.title = post.title;
         this.description = post.description;
         this.geoURL = post.geoURL;
-        this.author = post.author;
+        this.author = author;
         this.difficultyLvl = post.difficultyLvl;
-        this.photos = post.photos;
+        this.photos = photos;
         this.duration = post.duration;
         this.status = post.status;
-        this.comments = post.comments;
+        this.comments = comments;
         this.createdAt = post.createdAt;
         this.updatedAt = post.updatedAt;
     }

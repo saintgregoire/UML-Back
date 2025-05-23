@@ -27,6 +27,10 @@ export class CommentRepository {
         return this.getAll().find((c) => c.id === id) ?? null;
     }
 
+    static findByPostId(id: string): IComment[] {
+        return this.getAll().filter(comment => id.includes(comment.postId));
+    }
+
     static delete(id: string): void {
         const comments = this.getAll();
         const newComments = comments.filter(comment => comment.id !== id);

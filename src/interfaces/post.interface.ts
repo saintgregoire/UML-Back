@@ -1,5 +1,3 @@
-import { IComment } from "./comment.interface";
-import { IPhoto } from "./photo.interface";
 import { IUser } from "./user.interface";
 
 export interface IPost {
@@ -7,12 +5,10 @@ export interface IPost {
     title: string;
     description: string;
     geoURL: string;
-    author: IUser;
+    author: string;
     difficultyLvl: number;
-    photos: IPhoto[];
     duration: number;
     status: "pending" | "canceled" | "valid";
-    comments: IComment[];
     createdAt: Date;
     updatedAt: Date;
 }

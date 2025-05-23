@@ -1,26 +1,25 @@
 import { Request, Response } from "express";
-import { PostDTO } from "../dto/PostDTO";
-import { PostRepository } from "../repositories/PostRepository";
+import { PostService } from "../services/PostService";
 
 export class PostController {
-    getAll(req: Request, res: Response): void {
-        const posts = PostRepository.getAll().map((post) => new PostDTO(post));
+    getAll(res: Response): void {
+        const posts = PostService.getAll();
         res.json(posts);
     }
 
     create(req: Request, res: Response): void {
-        const newPost = PostRepository.create(req.body);
-        res.status(201).json(new PostDTO(newPost));
+        PostService.createPost(req.body);
+        res.status(201).json({message: "Post created"});
     }
 
     getOne(req: Request, res: Response): void {
         try {
-            const post = PostRepository.findById(req.params.id);
+            const post = PostService.getOne(req.params.id);
             if (!post) {
                 res.status(404).send("Post not found");
                 return;
             }
-            res.json(new PostDTO(post));
+            res.status(201);
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).send(error.message);
@@ -31,14 +30,14 @@ export class PostController {
     }
 
     delete(req: Request, res: Response): void {
-        PostRepository.delete(req.body.id);
+        PostService.deletePost(req.body.id);
         res.send("Post deleted successfully");
     }
 
     modify(req: Request, res: Response): void {
         try {
-            PostRepository.modify(req.body);
-            res.send("Post modified successfully");
+            PostService.updatePost(req.body);
+            res.status(200).send("Post modified successfully");
         } catch (error) {
             if (error instanceof Error) {
                 res.status(404).send(error.message);

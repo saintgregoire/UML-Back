@@ -43,4 +43,9 @@ export class UserRepository {
         users[index] = user;
         this.saveAll(users);
     }
+
+
+    static findByEmail(email: string): IUser | null {
+        return this.getAll().find((u) => u.email === email) ?? null;
+    }
 }
